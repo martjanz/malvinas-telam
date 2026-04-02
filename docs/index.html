@@ -254,6 +254,35 @@
                 border-top: 1px solid var(--border);
                 background: rgba(0, 0, 0, 0.6);
             }
+            #lightbox-hint {
+                position: fixed;
+                bottom: 3.5rem;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(20, 20, 20, 0.92);
+                border: 1px solid #333;
+                border-radius: 20px;
+                padding: 6px 14px;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                pointer-events: none;
+                opacity: 1;
+                transition: opacity 0.6s ease;
+                white-space: nowrap;
+            }
+            #lightbox-hint.fade-out {
+                opacity: 0;
+            }
+            #lightbox-hint .hint-icon {
+                color: var(--accent);
+                font-size: 1rem;
+            }
+            #lightbox-hint .hint-text {
+                color: var(--text);
+                font-size: 0.78rem;
+                letter-spacing: 0.05em;
+            }
             #lightbox-gallery {
                 font-family: var(--font-display);
                 font-style: italic;
