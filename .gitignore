@@ -1,0 +1,4 @@
+web.archive.org/
+wget.log
+__pycache__/
+.DS_Store
