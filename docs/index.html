@@ -3694,6 +3694,7 @@
                     lbCount.textContent = idx + 1 + " / " + triggers.length;
                     lb.classList.add("open");
                     document.body.style.overflow = "hidden";
+                    maybeShowHint();
                 }
 
                 function closeLb() {
@@ -3733,6 +3734,33 @@
                     if (e.key === "ArrowLeft") prevLb();
                     if (e.key === "ArrowRight") nextLb();
                 });
+
+                /* ── Touch swipe ── */
+                let touchStartX = 0;
+                lb.addEventListener("touchstart", (e) => {
+                    touchStartX = e.changedTouches[0].clientX;
+                }, { passive: true });
+                lb.addEventListener("touchend", (e) => {
+                    const dx = e.changedTouches[0].clientX - touchStartX;
+                    if (Math.abs(dx) > 40) dx < 0 ? nextLb() : prevLb();
+                });
+
+                /* ── One-time swipe hint ── */
+                const hint = document.getElementById("lightbox-hint");
+                const HINT_KEY = "lb-hint-seen";
+                function maybeShowHint() {
+                    if (localStorage.getItem(HINT_KEY)) return;
+                    localStorage.setItem(HINT_KEY, "1");
+                    hint.hidden = false;
+                    setTimeout(() => {
+                        hint.classList.add("fade-out");
+                        hint.addEventListener(
+                            "transitionend",
+                            () => { hint.hidden = true; },
+                            { once: true },
+                        );
+                    }, 3000);
+                }
 
                 /* ── Sync scroll-margin-top with actual sticky nav height ── */
                 const nav = document.getElementById("main-nav");
